@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
-        default: "https://res.cloudinary.com/dqqputx7b/image/upload/v1721291443/dummy_vuf3mm.png"
+        default: "https://res.cloudinary.com/dukdruhiu/image/upload/v1721291445/dummy_pgtabu.png"
     },
     password: {
         type: String,
