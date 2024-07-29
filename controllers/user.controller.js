@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../models/User")
 const sendEmail = require("../utils/email")
+const { sendSMS } = require("../utils/sms")
+
 
 exports.VerifyUserEmail = asyncHandler(async (req, res) => {
     console.log(req.loggedInUser)
@@ -14,6 +16,7 @@ exports.VerifyUserEmail = asyncHandler(async (req, res) => {
     await sendEmail({ to: result.email, subject: "Verify Email", message: `<h1> your OTP is ${otp}</h1>` })
     res.json({ message: "Verify User Email Success" })
 })
+
 exports.VerifyEmailOTP = asyncHandler(async (req, res) => {
     const { otp } = req.body
     console.log(req.loggedInUser)
@@ -27,6 +30,7 @@ exports.VerifyEmailOTP = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(req.loggedInUser, { emailVerified: true })
     res.json({ message: "User Email Verifyed Success" })
 })
+
 exports.VerifyMobileOTP = asyncHandler(async (req, res) => {
     const { otp } = req.body
     console.log(req.loggedInUser)
@@ -39,4 +43,17 @@ exports.VerifyMobileOTP = asyncHandler(async (req, res) => {
     }
     await User.findByIdAndUpdate(req.loggedInUser, { mobileVerified: true })
     res.json({ message: "User Mobile Verifyed Success" })
+})
+
+
+exports.VerifyUserMobile = asyncHandler(async (req, res) => {
+    const result = await User.findById(req.loggedInUser)
+    const otp = Math.floor(10000 + Math.random() * 900000)
+    await User.findByIdAndUpdate(req.loggedInUser, { mobileCode: otp })
+    await sendSMS(
+        {
+            message: `Welcome To OLX . Your OTP is ${otp}`,
+            numbers: `${result.mobile}`
+        })
+    res.json({ message: "Verify User Mobile Success" })
 })

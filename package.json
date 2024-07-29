@@ -102,6 +102,7 @@
     "tr46": "^4.1.1",
     "type-is": "^1.6.18",
     "typedarray": "^0.0.6",
+    "unirest": "^0.6.0",
     "unpipe": "^1.0.0",
     "util-deprecate": "^1.0.2",
     "utils-merge": "^1.0.1",
