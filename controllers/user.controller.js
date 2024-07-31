@@ -84,7 +84,7 @@ exports.VerifyUserMobile = asyncHandler(async (req, res) => {
 })
 
 exports.addPost = asyncHandler(async (req, res) => {
-    const { title, desc, price, images, location } = req.body
+    const { title, desc, price, images, location, category } = req.body
     const { error, isError } = checkEmpty({ title, desc, price, images, location, category })
 
     if (isError) {
