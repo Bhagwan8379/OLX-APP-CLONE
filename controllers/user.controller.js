@@ -90,7 +90,7 @@ exports.addPost = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "All Fields Required" })
     }
 
-    // await Posts.create({ title, desc, price, images, location, user: req.loggedInUser, category })
+    await Post.create({ title, desc, price, images, location, user: req.loggedInUser, category })
     res.json({ message: "Post Create Successs" })
 })
 exports.getLocation = asyncHandler(async (req, res) => {
