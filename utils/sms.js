@@ -16,7 +16,7 @@ exports.sendSMS = ({ message = "", numbers = "" }) => new Promise((resolve, reje
             console.log(res.error)
             reject(res.reject)
         }
-        console.log(res.body);
+        console.log(res.body)
         resolve(true)
     })
 })

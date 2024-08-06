@@ -4,6 +4,7 @@ const { sendSMS } = require("../utils/sms")
 const { checkEmpty } = require("../utils/checkEmpty")
 const { post } = require("../routes/user.routes")
 const Post = require("../models/Post")
+const upload = require("../utils/upload")
 
 
 exports.VerifyUserEmail = asyncHandler(async (req, res) => {
@@ -84,15 +85,19 @@ exports.VerifyUserMobile = asyncHandler(async (req, res) => {
 })
 
 exports.addPost = asyncHandler(async (req, res) => {
-    const { title, desc, price, images, location, category } = req.body
-    const { error, isError } = checkEmpty({ title, desc, price, images, location, category })
-    if (isError) {
-        return res.status(400).json({ message: "All Fields Required" })
-    }
+    upload(req, res, async err => {
+        const { title, desc, price, location, category } = req.body
+        const { error, isError } = checkEmpty({ title, desc, price, location, category })
+        if (isError) {
+            return res.status(400).json({ message: "All Fields Required" })
+        }
+        await Post.create({ title, desc, price, location, user: req.loggedInUser, category })
+        res.json({ message: "Post Create Successs" })
+    })
 
-    await Post.create({ title, desc, price, images, location, user: req.loggedInUser, category })
-    res.json({ message: "Post Create Successs" })
 })
+
+
 exports.getLocation = asyncHandler(async (req, res) => {
     const { gps } = req.body
     const { error, isError } = checkEmpty({ gps })
