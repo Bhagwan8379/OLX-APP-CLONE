@@ -68,7 +68,6 @@ exports.VerifyMobileOTP = asyncHandler(async (req, res) => {
     })
 })
 
-
 exports.VerifyUserMobile = asyncHandler(async (req, res) => {
     const result = await User.findById(req.loggedInUser)
     const otp = Math.floor(10000 + Math.random() * 900000)
@@ -96,7 +95,6 @@ exports.addPost = asyncHandler(async (req, res) => {
     })
 
 })
-
 
 exports.getLocation = asyncHandler(async (req, res) => {
     const { gps } = req.body
