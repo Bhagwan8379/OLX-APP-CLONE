@@ -11,7 +11,7 @@ app.use(cookieParser())
 app.use(express.static("dist"))
 app.use(cors({
     origin: process.env.NODE_ENV === "development"
-        ? "http://localhost:19006/"
+        ? "http://localhost:19006"
         : process.env.LIVE_SERVER,
     credentials: true             //For Cookie Send and Get
 }))
